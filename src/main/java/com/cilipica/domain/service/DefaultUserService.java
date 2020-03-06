@@ -10,17 +10,17 @@ import static com.cilipica.persistence.entity.UserEntity.fromModel;
 
 @Service
 public class DefaultUserService implements UserService {
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     @Autowired
     public DefaultUserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+        this.repository = userRepository;
     }
 
     @Override
     public User createUser(User body) throws CiliPicaServiceException {
         try {
-            return userRepository.save(fromModel(body)).toModel();
+            return repository.save(fromModel(body)).toModel();
         } catch (Exception e) {
             throw new CiliPicaServiceException("Unable to create user", e);
         }
@@ -29,7 +29,7 @@ public class DefaultUserService implements UserService {
     @Override
     public void deleteUser(String username) throws CiliPicaServiceException {
         try {
-            userRepository.deleteUserByUsername(username);
+            repository.deleteUserByUsername(username);
         } catch (Exception e) {
             throw new CiliPicaServiceException("Error deleting user", e);
         }
@@ -37,7 +37,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User getUserByName(String username) throws CiliPicaServiceException {
-        var result = userRepository.findByUsername(username);
+        var result = repository.findByUsername(username);
         if (result.isPresent()) {
             return result.get().toModel();
         }
@@ -54,7 +54,7 @@ public class DefaultUserService implements UserService {
         try {
             var user = getUserByName(username);
             body.setId(user.getId());
-            return userRepository.save(fromModel(body)).toModel();
+            return repository.save(fromModel(body)).toModel();
         } catch (Exception e) {
             throw new CiliPicaServiceException("Unable to update user", e);
         }
