@@ -10,10 +10,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = {"io.swagger", "io.swagger.api", "io.swagger.configuration"})
-public class Swagger2SpringBoot implements CommandLineRunner {
+public class CiliPicaApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
-        new SpringApplication(Swagger2SpringBoot.class).run(args);
+        new SpringApplication(CiliPicaApplication.class).run(args);
     }
 
     @Override
