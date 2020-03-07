@@ -19,10 +19,11 @@ public class MealEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany
+    @ManyToOne
     private CategoryEntity categoryEntity;
     private String name;
     private Integer price;
+    @ElementCollection
     private List<String> photoUrls;
     @Enumerated(EnumType.STRING)
     private MealStatus status;
