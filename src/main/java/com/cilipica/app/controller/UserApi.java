@@ -5,6 +5,7 @@
  */
 package com.cilipica.app.controller;
 
+import com.cilipica.domain.exception.CiliPicaServiceException;
 import com.cilipica.domain.model.User;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public interface UserApi {
     @RequestMapping(value = "/user",
             consumes = {"*/*"},
             method = RequestMethod.POST)
-    ResponseEntity<Void> createUser(@ApiParam(value = "Created user object", required = true) @Valid @RequestBody User body
-    );
+    ResponseEntity<User> createUser(@ApiParam(value = "Created user object", required = true) @Valid @RequestBody User body
+    ) throws CiliPicaServiceException;
 
     @ApiOperation(value = "Delete user", nickname = "deleteUser", notes = "This can only be done by the logged in user.", tags = {"user",})
     @ApiResponses(value = {
@@ -34,7 +35,7 @@ public interface UserApi {
     @RequestMapping(value = "/user/{username}",
             method = RequestMethod.DELETE)
     ResponseEntity<Void> deleteUser(@ApiParam(value = "The name that needs to be deleted", required = true) @PathVariable("username") String username
-    );
+    ) throws CiliPicaServiceException;
 
     @ApiOperation(value = "Get user by user name", nickname = "getUserByName", notes = "", response = User.class, tags = {"user",})
     @ApiResponses(value = {
@@ -45,7 +46,7 @@ public interface UserApi {
             produces = {"application/xml", "application/json"},
             method = RequestMethod.GET)
     ResponseEntity<User> getUserByName(@ApiParam(value = "The name that needs to be fetched. Use user1 for testing. ", required = true) @PathVariable("username") String username
-    );
+    ) throws CiliPicaServiceException;
 
     @ApiOperation(value = "Logs user into the system", nickname = "loginUser", notes = "", response = String.class, tags = {"user",})
     @ApiResponses(value = {
@@ -72,8 +73,8 @@ public interface UserApi {
     @RequestMapping(value = "/user/{username}",
             consumes = {"*/*"},
             method = RequestMethod.PUT)
-    ResponseEntity<Void> updateUser(@ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User body
+    ResponseEntity<User> updateUser(@ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User body
             , @ApiParam(value = "name that need to be updated", required = true) @PathVariable("username") String username
-    );
+    ) throws CiliPicaServiceException;
 
 }
